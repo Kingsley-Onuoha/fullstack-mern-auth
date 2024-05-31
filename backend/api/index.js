@@ -26,4 +26,16 @@ app.listen(3000, () => {
 // configuring the user router
 app.use("/api/user", userRoute);
 
+//configuring the auth router
 app.use('/api/auth', authRoute)
+
+//configuring middleware
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500
+    const message = err.message || 'internal server error'
+    return res.status(statusCode).json({
+        success: false,
+        error: message,
+        statusCode: statusCode
+    })
+})

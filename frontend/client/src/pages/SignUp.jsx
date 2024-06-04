@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -26,6 +27,7 @@ const SignUp = () => {
       if (data.success === false) {
         setError(true);
       }
+      navigate('/signin')
     } catch (error) {
       setLoading(false);
       setError(true);
@@ -57,16 +59,19 @@ const SignUp = () => {
           className="bg-slate-100 p-3 rounded-lg border-2 border-gray-200"
           onChange={handleChange}
         />
-        <button disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
+        <button
+          disabled={loading}
+          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+        >
           {loading ? "loading..." : "sign up"}
         </button>
         <div className="flex gap-2 mt-5">
           <p>Have an account?</p>
-          <Link to="/signin"> 
-            <span className="text-blue-800">Sign up</span>
+          <Link to="/signin">
+            <span className="text-blue-800">Sign in</span>
           </Link>
         </div>
-        <p className="text-red-600">{ error && "Something went wrong!"}</p>
+        <p className="text-red-600">{error && "Something went wrong!"}</p>
       </form>
     </div>
   );

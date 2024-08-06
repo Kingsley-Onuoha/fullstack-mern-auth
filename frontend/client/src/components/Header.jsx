@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const { currentUser } = useSelector((store) => store.user);
-
+  
   return (
     <div className="bg-slate-200 flex justify-between items-center mx-auto p-6">
       <Link to="/">
